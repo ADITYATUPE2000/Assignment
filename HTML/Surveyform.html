@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Survey Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: left;
+            background-color: #0099ff;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        #survey-form {
+            width: 40%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: white;
+        }
+        
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 80%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-right: 30%;
+        }
+        
+        select {
+            width: 80%;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        
+        .gender-label {
+            display: inline;
+        }
+        
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #0099ff;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Customer Survey Form</h1>
+    <form id="survey-form">
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name" required>
+
+        <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name" required>
+
+        <label for="date-of-birth">Date of Birth:</label>
+        <input type="date" id="date-of-birth" required>
+
+        <label for="country">Country:</label>
+        <select id="country" required>
+            <option value="usa">United States</option>
+            <option value="canada">Canada</option>
+            <option value="uk">United Kingdom</option>
+        </select>
+
+        <label>Gender:</label>
+        <label class="gender-label"><input type="checkbox" name="gender" value="male"> Male</label>
+        <label class="gender-label"><input type="checkbox" name="gender" value="female"> Female</label>
+
+        <label for="profession">Profession:</label>
+        <input type="text" id="profession" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+
+        <label for="mobile-number">Mobile Number:</label>
+        <input type="tel" id="mobile-number" required>
+
+        <button type="submit" onclick="submitForm()">Submit</button>
+        <button type="reset">Reset</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const dateOfBirth = document.getElementById('date-of-birth').value;
+            const country = document.getElementById('country').value;
+            const genderCheckboxes = document.querySelectorAll('input[type="checkbox"][name="gender"]:checked');
+            const profession = document.getElementById('profession').value;
+            const email = document.getElementById('email').value;
+            const mobileNumber = document.getElementById('mobile-number').value;
+
+            // Check if all required fields are filled
+            if (!firstName || !lastName || !dateOfBirth || !country || genderCheckboxes.length === 0 || !profession || !email || !mobileNumber) {
+                alert('Please fill out all required fields.');
+                return;
+            }
+
+            // Construct and display the submission information
+            let submissionInfo = 'Survey Form Submission:\n';
+            submissionInfo += `First Name: ${firstName}\n`;
+            submissionInfo += `Last Name: ${lastName}\n`;
+            submissionInfo += `Date of Birth: ${dateOfBirth}\n`;
+            submissionInfo += `Country: ${country}\n`;
+            submissionInfo += 'Gender: ';
+            genderCheckboxes.forEach(checkbox => {
+                submissionInfo += `${checkbox.value}, `;
+            });
+            submissionInfo = submissionInfo.slice(0, -2); // Remove trailing comma and space
+            submissionInfo += '\n';
+            submissionInfo += `Profession: ${profession}\n`;
+            submissionInfo += `Email: ${email}\n`;
+            submissionInfo += `Mobile Number: ${mobileNumber}\n`;
+
+            alert(submissionInfo);
+
+            // Reset the form
+            document.getElementById('survey-form').reset();
+        }
+    </script>
+</body>
+
+</html>
